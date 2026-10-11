@@ -1,3 +1,30 @@
+const themeButton = document.querySelector('.theme-toggle');
+
+function updateThemeButton() {
+  const dark = document.documentElement.dataset.theme === 'dark';
+  const label = dark ? '화이트 모드' : '다크 모드';
+  themeButton.querySelector('.theme-label').textContent = label;
+  themeButton.setAttribute('aria-label', label);
+  themeButton.setAttribute('aria-pressed', String(dark));
+}
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  updateThemeButton();
+}
+
+updateThemeButton();
+themeButton.addEventListener('click', () => {
+  const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  applyTheme(theme);
+  try { localStorage.setItem('move-theme', theme); } catch { /* Keep working without storage. */ }
+});
+window.addEventListener('storage', event => {
+  if (event.key === 'move-theme' && (event.newValue === 'light' || event.newValue === 'dark')) {
+    applyTheme(event.newValue);
+  }
+});
+
 const menuButton = document.querySelector('.menu-toggle');
 const navigation = document.querySelector('#navigation');
 
