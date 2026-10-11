@@ -23,7 +23,7 @@ document.querySelector('#year').textContent = new Date().getFullYear();
 
 // 실제 문의 수신 이메일로 변경하면 이메일 앱에서 문의를 작성할 수 있습니다.
 const contactEmail = '';
-document.querySelector('#contact-form').addEventListener('submit', event => {
+document.querySelector('#contact-form')?.addEventListener('submit', event => {
   event.preventDefault();
   const status = document.querySelector('#form-status');
   if (!contactEmail) {
